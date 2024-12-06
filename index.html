@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Request Form</title>
+   
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Budget Request Form</h1>
+        <form id="budgetRequestForm">
+            <!-- Basic Information -->
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <select id="country" name="country" required>
+                    <option value="">Select a country</option>
+                    <option value="Venezuela">Venezuela</option>
+                    <option value="Ecuador">Ecuador</option>
+                    <option value="Honduras">Honduras</option>
+                    <option value="Uruguay">Uruguay</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Guatemala">Guatemala</option>
+                    <option value="El Salvador">El Salvador</option>
+                    <option value="Cuba">Cuba</option>
+                    <option value="Nicaragua">Nicaragua</option>
+                    <option value="Haiti">Haiti</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="Panama">Panama</option>
+                </select>
+
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" required>
+
+                <label for="requestDate">Request Date:</label>
+                <input type="date" id="requestDate" name="requestDate" required>
+
+                <label for="budgetMonth">Budget Month:</label>
+                <input type="month" id="budgetMonth" name="budgetMonth" required>
+
+                <label for="budgetType">Budget Type:</label>
+                <select id="budgetType" name="budgetType" required>
+                    <option value="">Select budget type</option>
+                    <option value="Regular Budget">Regular Budget</option>
+                    <option value="Other">Other (please specify)</option>
+                </select>
+
+                <div id="otherBudgetTypeContainer" style="display: none;">
+                    <label for="otherBudgetType">Please specify budget type:</label>
+                    <input type="text" id="otherBudgetType" name="otherBudgetType">
+                </div>
+            </div>
+
+            <!-- Utilities -->
+            <div class="form-group">
+                <h2>Utilities</h2>
+                <label for="localeRent">Locale Rent:</label>
+                <input type="number" id="localeRent" name="localeRent" required min="0" step="0.01" placeholder="Input US Dollar">
+
+                <label for="electricity">Electricity:</label>
+                <input type="number" id="electricity" name="electricity" required min="0" step="0.01" placeholder="Input US Dollar">
+
+                <label for="water">Water & Drinking:</label>
+                <input type="number" id="water" name="water" required min="0" step="0.01" placeholder="Input US Dollar">
+
+                <label for="gas">Water & Gas:</label>
+                <input type="number" id="gas" name="gas" required min="0" step="0.01" placeholder="Input US Dollar">
+
+                <label for="internet">Internet:</label>
+                <input type="number" id="internet" name="internet" required min="0" step="0.01" placeholder="Input US Dollar">
+
+                <label for="communication">Communication (phone/postpaid/prepaid):</label>
+                <input type="number" id="communication" name="communication" required min="0" step="0.01" placeholder="Input US Dollar">
+            </div>
+
+            <!-- Allowance -->
+            <div class="form-group">
+                <h2>Allowance</h2>
+                <label for="workersAllowance">Workers Allowance & Food:</label>
+                <input type="number" id="workersAllowance" name="workersAllowance" required min="0" step="0.01" placeholder="Input US Dollar">
+            </div>
+
+            <!-- LKD Assistance -->
+            <div class="form-group">
+                <h2>LKD Assistance</h2>
+                <label for="lkdMedical">LKD Medical & Financial Assistance:</label>
+                <input type="number" id="lkdMedical" name="lkdMedical" required min="0" step="0.01" placeholder="Input US Dollar">
+            </div>
+
+            <!-- Food -->
+            <div class="form-group">
+                <h2>Food</h2>
+                <label for="avgFoodBudget">Average food budget (brethren):</label>
+                <input type="number" id="avgFoodBudget" name="avgFoodBudget" required min="0" step="0.01" placeholder="Input US Dollar">
+
+                <label for="avgFoodExpense">Average food expense (BS/Doktrina):</label>
+                <input type="number" id="avgFoodExpense" name="avgFoodExpense" required min="0" step="0.01" placeholder="Input US Dollar">
+            </div>
+
+            <!-- Transportation -->
+            <div class="form-group">
+                <h2>Transportation</h2>
+                <label for="transportIndividual">Transportation (Individual Expenses):</label>
+                <input type="number" id="transportIndividual" name="transportIndividual" required min="0" step="0.01" placeholder="Input US Dollar">
+
+                <label for="transportBS">Transportation (BS/Dokrina):</label>
+                <input type="number" id="transportBS" name="transportBS" required min="0" step="0.01" placeholder="Input US Dollar">
+            </div>
+
+            <!-- Maintenance -->
+            <!-- Replace the existing Maintenance section with this -->
+<div class="form-group">
+    <h2>Maintenance</h2>
+    <div id="maintenanceEntries" class="misc-entries">
+        <div class="misc-entry">
+            <div class="input-group">
+                <label for="maintenanceDescription_0">Description:</label>
+                <input type="text" id="maintenanceDescription_0" name="maintenanceDescription_0" placeholder="Specify maintenance">
+            </div>
+            <div class="input-group">
+                <label for="maintenanceAmount_0">Amount:</label>
+                <input type="number" id="maintenanceAmount_0" name="maintenanceAmount_0" min="0" step="0.01" placeholder="Input US Dollar">
+            </div>
+            <button type="button" class="remove-entry" onclick="removeMaintenanceEntry(this)" style="visibility: hidden;">×</button>
+        </div>
+    </div>
+    <button type="button" class="add-misc" onclick="addMaintenanceEntry()">+ Add Maintenance Item</button>
+</div>
+
+            <!-- Other/Miscellaneous -->
+            <div class="form-group">
+                <h2>Other/Miscellaneous</h2>
+                <div id="miscEntries" class="misc-entries">
+                    <div class="misc-entry">
+                        <div class="input-group">
+                            <label for="otherExpenseDescription_0">Description:</label>
+                            <input type="text" id="otherExpenseDescription_0" name="otherExpenseDescription_0" placeholder="Specify other expenses">
+                        </div>
+                        <div class="input-group">
+                            <label for="otherExpenseAmount_0">Amount:</label>
+                            <input type="number" id="otherExpenseAmount_0" name="otherExpenseAmount_0" min="0" step="0.01" placeholder="Input US Dollar">
+                        </div>
+                        <button type="button" class="remove-entry" onclick="removeEntry(this)" style="visibility: hidden;">×</button>
+                    </div>
+                </div>
+                <button type="button" class="add-misc" onclick="addMiscEntry()">+ Add Another Expense</button>
+            </div>
+
+            <!-- Other Information -->
+            <div class="form-group">
+                <h2>Other Information</h2>
+                <label for="requestedBy">Requested By:</label>
+                <input type="text" id="requestedBy" name="requestedBy" required>
+
+                <label for="approvedBy">Approved By:</label>
+                <input type="text" id="approvedBy" name="approvedBy" required>
+
+                <label for="notes">Notes:</label>
+                <textarea id="notes" name="notes" rows="4" required></textarea>
+            </div>
+            
+            <!-- Add this just before the submit button in your form -->
+<div class="form-group summary-section">
+    <h2>Budget Summary</h2>
+    <div class="summary-grid">
+        <!-- Utilities Summary -->
+        <div class="summary-category">
+            <h3>Utilities Total</h3>
+            <p id="utilitiesTotal">$0.00</p>
+            <div class="summary-details">
+                <small>Locale Rent: <span id="rentSum">$0.00</span></small>
+                <small>Electricity: <span id="electricitySum">$0.00</span></small>
+                <small>Water & Drinking: <span id="waterSum">$0.00</span></small>
+                <small>Water & Gas: <span id="gasSum">$0.00</span></small>
+                <small>Internet: <span id="internetSum">$0.00</span></small>
+                <small>Communication: <span id="communicationSum">$0.00</span></small>
+            </div>
+        </div>
+
+        <!-- Allowance Summary -->
+        <div class="summary-category">
+            <h3>Allowance Total</h3>
+            <p id="allowanceTotal">$0.00</p>
+            <div class="summary-details">
+                <small>Workers Allowance & Food: <span id="workersAllowanceSum">$0.00</span></small>
+            </div>
+        </div>
+
+        <!-- LKD Assistance Summary -->
+        <div class="summary-category">
+            <h3>LKD Assistance Total</h3>
+            <p id="lkdTotal">$0.00</p>
+            <div class="summary-details">
+                <small>Medical & Financial: <span id="lkdMedicalSum">$0.00</span></small>
+            </div>
+        </div>
+
+        <!-- Food Summary -->
+        <div class="summary-category">
+            <h3>Food Total</h3>
+            <p id="foodTotal">$0.00</p>
+            <div class="summary-details">
+                <small>Brethren Budget: <span id="foodBudgetSum">$0.00</span></small>
+                <small>BS/Doktrina Expense: <span id="foodExpenseSum">$0.00</span></small>
+            </div>
+        </div>
+
+        <!-- Transportation Summary -->
+        <div class="summary-category">
+            <h3>Transportation Total</h3>
+            <p id="transportationTotal">$0.00</p>
+            <div class="summary-details">
+                <small>Individual: <span id="transportIndividualSum">$0.00</span></small>
+                <small>BS/Dokrina: <span id="transportBSSum">$0.00</span></small>
+            </div>
+        </div>
+
+        <!-- Maintenance Summary -->
+<!-- Replace the existing Maintenance summary with this -->
+<div class="summary-category">
+    <h3>Maintenance Total</h3>
+    <p id="maintenanceTotal">$0.00</p>
+    <div id="maintenanceSummaryDetails" class="summary-details">
+        <!-- Dynamically populated -->
+    </div>
+</div>
+
+        <!-- Miscellaneous Summary -->
+        <div class="summary-category">
+            <h3>Miscellaneous Total</h3>
+            <p id="miscTotal">$0.00</p>
+            <div id="miscSummaryDetails" class="summary-details">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Grand Total -->
+    <div class="grand-total">
+        <h3>Grand Total</h3>
+        <p id="grandTotal">$0.00</p>
+    </div>
+</div>
+
+<div class="form-messages" style="display: none;">
+    <div class="success-message"></div>
+    <div class="error-message"></div>
+</div>
+
+<div class="currency-note">
+    <small>All amounts are in US Dollars</small>
+</div>
+
+<button type="button" class="pdf-button" onclick="generatePDF()" id="pdfButton">
+    <span class="button-text">Download PDF Summary</span>
+    <span class="loading-spinner" style="display: none;">Generating...</span>
+</button>
+
+            <button type="submit">Submit Budget Request</button>
+        </form>
+    </div>
+<script src="script.js"></script>
+</body>
+</html>

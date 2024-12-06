@@ -1,0 +1,327 @@
+
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --background-color: #f8fafc;
+    --card-background: #ffffff;
+    --text-color: #1e293b;
+    --border-color: #e2e8f0;
+    --label-color: #475569;
+    --error-color: #ef4444;
+    --success-color: #10b981;
+    --section-bg: #f1f5f9;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 2rem 1rem;
+}
+
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--card-background);
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 2rem;
+}
+
+h1 {
+    color: var(--text-color);
+    font-size: 1.875rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.form-group {
+    background: var(--section-bg);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s;
+}
+
+.form-group:hover {
+    transform: translateY(-2px);
+}
+
+.form-group h2 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+label {
+    display: block;
+    color: var(--label-color);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="month"],
+select,
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.3s;
+    background: var(--card-background);
+    margin-bottom: 1rem;
+}
+
+input[type="number"] {
+    text-align: right;
+    padding-right: 1rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+input:required,
+select:required,
+textarea:required {
+    border-left: 3px solid var(--primary-color);
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23475569' viewBox='0 0 16 16'%3E%3Cpath d='M8 10.5l-4-4h8l-4 4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2.5rem;
+}
+
+.misc-entry {
+display: flex;
+gap: 1rem;
+align-items: flex-start;
+margin-bottom: 1rem;
+}
+
+.misc-entry .input-group {
+flex: 1;  /* Change this to specific widths */
+}
+
+/* Add these new styles */
+.misc-entry .input-group:first-child {
+flex: 2; /* Description takes more space */
+}
+
+.misc-entry .input-group:nth-child(2) {
+flex: 1; /* Amount takes less space */
+}
+
+.remove-entry {
+background-color: #ef4444;
+color: white;
+border: none;
+border-radius: 0.5rem;
+padding: 0.5rem;  /* Reduced padding */
+width: 32px;      /* Fixed width */
+height: 32px;     /* Fixed height */
+cursor: pointer;
+margin-top: 2rem;
+transition: all 0.3s;
+display: flex;    /* Center the X */
+align-items: center;
+justify-content: center;
+font-size: 1.2rem; /* Adjust X size */
+}
+
+.summary-section {
+background: var(--section-bg);
+margin-top: 2rem;
+}
+
+.summary-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 1.5rem;
+margin-bottom: 2rem;
+}
+
+.summary-category {
+background: var(--card-background);
+padding: 1rem;
+border-radius: 0.5rem;
+box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.summary-category h3 {
+color: var(--primary-color);
+font-size: 1rem;
+margin-bottom: 0.5rem;
+}
+
+.summary-category p {
+font-size: 1.25rem;
+font-weight: 600;
+color: var(--text-color);
+margin-bottom: 0.5rem;
+}
+
+.summary-details {
+display: flex;
+flex-direction: column;
+gap: 0.25rem;
+}
+
+.summary-details small {
+color: var(--label-color);
+display: flex;
+justify-content: space-between;
+font-size: 0.75rem;
+}
+
+.grand-total {
+background: var(--primary-color);
+color: white;
+padding: 1rem;
+border-radius: 0.5rem;
+margin-top: 1rem;
+text-align: center;
+}
+
+.grand-total h3 {
+font-size: 1.25rem;
+margin-bottom: 0.5rem;
+}
+
+.grand-total p {
+font-size: 2rem;
+font-weight: 700;
+}
+
+.pdf-button {
+background-color: #636363;
+margin-bottom: 1rem;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 0.5rem;
+}
+
+.pdf-button:hover {
+background-color: #363636;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    margin-top: 2rem;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+::placeholder {
+    color: #94a3b8;
+    opacity: 1;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        padding: 1.5rem;
+    }
+
+    .form-group {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    input[type="month"],
+    select,
+    textarea {
+        font-size: 16px;
+    }
+}
+
+button.loading {
+    background-image: linear-gradient(45deg, var(--primary-color) 25%, var(--primary-hover) 25%, var(--primary-hover) 50%, var(--primary-color) 50%, var(--primary-color) 75%, var(--primary-hover) 75%, var(--primary-hover));
+    background-size: 1rem 1rem;
+    animation: loading-stripes 1s linear infinite;
+}
+
+@keyframes loading-stripes {
+    0% { background-position: 0 0; }
+    100% { background-position: 1rem 0; }
+}
+
+.success-message {
+    background-color: var(--success-color);
+    color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    display: none;
+}
+
+.error-message {
+    background-color: var(--error-color);
+    color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    display: none;
+}
